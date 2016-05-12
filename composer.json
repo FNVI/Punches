@@ -1,0 +1,27 @@
+{
+    "name": "fnvi/punches",
+    "description": "Description of project Punches.",
+    "authors": [
+        {
+            "name": "Joe Wheatley",
+            "email": "joew@fnvi.co.uk"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:FNVI/mongo.git"
+        }
+    ],
+    "require": {
+        "fnvi/mongo": "0.1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "FNVi\\Forms\\": "src"
+        },
+        "files":[
+            "settings.php"
+        ]
+    }
+}
