@@ -30,8 +30,11 @@ and open the template in the editor.
                 
             $post_vars = filter_input_array(INPUT_POST, $args, false);
             
+            echo count($post_vars) ." - " . count($args);
+            
             if(count($post_vars) === count($args)){
-                $punch = new Punch($post_vars["item"], $post_vars["user"], $post_vars["issue"]);
+                echo "got one";
+                $punches->insertOne(new Punch($post_vars["item"], $post_vars["user"], $post_vars["issue"]));
             }
             
         ?>
@@ -42,10 +45,10 @@ and open the template in the editor.
                         <a href="index.php">Home</a>
                     </li>
                     <li>
-                        <a href="sendMessage.php">Raise Punch</a>
+                        <a href="raisepunch.php">Raise Punch</a>
                     </li>
                     <li>
-                        <a href="sendMessage.php">Punch list</a>
+                        <a href="punchlist.php">Punch list</a>
                     </li>
                 </ul>
             </div>
@@ -70,7 +73,7 @@ and open the template in the editor.
                             <label for="issue">
                                 Issue:
                             </label>
-                            <textarea class="form-control" id="issue" name="user" rows="4">Rockets are delayed too long. When they do fire they are too powerful</textarea>
+                            <textarea class="form-control" id="issue" name="issue" rows="4">Rockets are delayed too long. When they do fire they are too powerful</textarea>
                         </div>
                         <button class="btn btn-success">Submit</button>
                     </form>

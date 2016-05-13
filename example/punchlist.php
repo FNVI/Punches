@@ -16,6 +16,11 @@ and open the template in the editor.
     <body>
         <?php
         include '../vendor/autoload.php';
+        use FNVi\Punches\Collections\Punches;
+        
+        $punches = new Punches();
+        
+            
         ?>
         <nav class="navbar navbar-default">
             <div class="container">
@@ -24,10 +29,10 @@ and open the template in the editor.
                         <a href="index.php">Home</a>
                     </li>
                     <li>
-                        <a href="sendMessage.php">Raise Punch</a>
+                        <a href="raisepunch.php">Raise Punch</a>
                     </li>
                     <li>
-                        <a href="sendMessage.php">Punch list</a>
+                        <a href="punchlist.php">Punch list</a>
                     </li>
                 </ul>
             </div>
@@ -35,7 +40,13 @@ and open the template in the editor.
         <main class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    
+                    <div class="list-group">
+                        <?php foreach($punches->find() as $punch){ ?>
+                        <a class="list-group-item" href="punchdetail.php?id=<?php echo $punch->getId(); ?>">
+                            <?php echo $punch->item; ?>
+                        </a>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
         </main>

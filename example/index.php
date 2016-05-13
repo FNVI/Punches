@@ -27,7 +27,7 @@ and open the template in the editor.
                         <a href="raisepunch.php">Raise Punch</a>
                     </li>
                     <li>
-                        <a href="sendMessage.php">Punch list</a>
+                        <a href="punchlist.php">Punch list</a>
                     </li>
                 </ul>
             </div>
