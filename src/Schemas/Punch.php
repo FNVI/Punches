@@ -1,5 +1,6 @@
 <?php
-namespace FNVi\Punches;
+namespace FNVi\Punches\Schemas;
+use FNVi\Punches\PunchStatus;
 use FNVi\Mongo\Schema;
 use FNVi\Mongo\Action;
 /**
@@ -15,27 +16,40 @@ class Punch extends Schema{
     public $closed;
     public $accepted;
     public $rejected;
-    protected $status;
+    public $issue;
+    public $status;
     
-    public function __construct($item, $user) {
+    public function __construct($item, $user, $issue) {
         $this->item = $item;
-        $this->raised = ["by"=>$user, "timestamp"=>$this->timestamp()];
-        $this->status = "raised";
+        $this->raised = new Action($user);
+        $this->issue = $issue;
+        $this->status = [
+                            "name"=>"raised",
+                            "order"=>0
+                        ];
         parent::__construct("punches");
     }
     
     public function close($user){
         $this->closed = new Action($user);
-        $this->status = "closed";
+        $this->status = [
+                            "name"=>"closed",
+                            "order"=>3
+                        ];
     }
     
     public function accept($user){
         $this->accepted = new Action($user);
-        $this->status = "accepted";
+        $this->status = [
+                            "name"=>"accepted",
+                            "order"=>1
+                        ];
     }
     
     public function reject($user){
         $this->rejected = new Action($user);
-        $this->status = "rejected";
+        $this->status = [
+                            "name"=>"rejected"
+                        ];
     }
 }
