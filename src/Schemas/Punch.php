@@ -19,6 +19,9 @@ class Punch extends Schema{
     public $issue;
     public $status;
     
+    public $collectionName = "punches";
+
+
     public function __construct($item, $user, $issue) {
         $this->item = $item;
         $this->raised = new Action($user);
