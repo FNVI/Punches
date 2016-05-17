@@ -1,6 +1,5 @@
 <?php
 namespace FNVi\Punches\Schemas;
-use FNVi\Punches\PunchStatus;
 use FNVi\Mongo\Schema;
 use FNVi\Mongo\Action;
 /**

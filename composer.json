@@ -14,11 +14,11 @@
         }
     ],
     "require": {
-        "fnvi/mongo": "0.1.1"
+        "fnvi/mongo": "0.1.2"
     },
     "autoload": {
-        "psr-4": {
-            "FNVi\\Forms\\": "src"
+        "psr-4": { 
+            "FNVi\\Punches\\": "src"
         },
         "files":[
             "settings.php"

@@ -1,12 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace FNVi\Punches;
+use FNVi\Punches\Collections\Punches;
+use FNVi\Punches\Schemas\Punch;
+use FNVi\Mongo\Tools\Aggregate;
 use MongoDB\BSON\ObjectID;
 /**
  * Description of PunchList
@@ -48,18 +45,37 @@ class PunchList {
     }
     
     public function getOpenPunches(array $query = []){
-        return $this->collection->getPunches($query += ["status"=>['$ne'=>PunchStatus::closed]]);
+        return $this->collection->getPunches($query += ["status.name"=>['$ne'=>"closed"]]);
     }
     
     public function getClosedPunches(array $query = []){
-        return $this->collection->getPunches($query += ["status"=>PunchStatus::closed]);
+        return $this->collection->getPunches($query += ["status.name"=>"closed"]);
     }
     
+    public function getRejectedPunches(array $query = []){
+        return $this->collection->getPunches($query += ["status.name"=>"rejected"]);
+    }    
+    
     public function getAcceptedPunches(array $query = []){
-        return $this->collection->getPunches($query += ["status" => PunchStatus::accepted]);
+        return $this->collection->getPunches($query += ["status.name" => "accepted"]);
+    }
+    
+    public function getPunchesWithStatus($status){
+        if($status === "open"){
+            $status = ['$ne'=>"closed"];
+        }
+        return $this->getPunches(["status.name" => $status]);
     }
     
     public function getPunches(array $query = []){
         return $this->collection->find($this->query += $query);
+    }
+    
+    public function groupPunchesByStatus(array $statuses = []){
+        $aggregate = new Aggregate($this->collection);
+        if(count($statuses)){
+            $aggregate->match(["status.name"=>['$in'=>$statuses]]);
+        }
+        return $this->collection->aggregate($aggregate->groupBy('$status')->sort(["_id.order"=>1])->getPipeline());
     }
 }

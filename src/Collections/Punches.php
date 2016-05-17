@@ -1,7 +1,9 @@
 <?php
 
-namespace FNVi\Punches;
+namespace FNVi\Punches\Collections;
 use FNVi\Mongo\Collection;
+use MongoDB\BSON\ObjectID;
+use FNVi\Punches\Schemas\Punch;
 
 /**
  * Description of Punches
@@ -12,6 +14,15 @@ class Punches extends Collection{
     
     public function __construct() {
         parent::__construct();
+    }
+    
+    /**
+     * 
+     * @param string $id
+     * @return Punch
+     */
+    public function getPunch($id){
+        return $this->findOne(["_id"=>new ObjectID($id)]);
     }
     
     public function getOpenPunches() {
