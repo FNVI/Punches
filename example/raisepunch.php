@@ -30,11 +30,9 @@ and open the template in the editor.
                 
             $post_vars = filter_input_array(INPUT_POST, $args, false);
             
-            echo count($post_vars) ." - " . count($args);
-            
             if(count($post_vars) === count($args)){
-                echo "got one";
                 $punches->insertOne(new Punch($post_vars["item"], $post_vars["user"], $post_vars["issue"]));
+                header("Location: index.php");
             }
             
         ?>
@@ -42,13 +40,13 @@ and open the template in the editor.
             <div class="container">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="index.php">Home</a>
+                        <a href="index.php">Punch list</a>
                     </li>
                     <li>
                         <a href="raisepunch.php">Raise Punch</a>
                     </li>
                     <li>
-                        <a href="punchlist.php">Punch list</a>
+                        <a href="aggregate.php">Accordion List</a>
                     </li>
                 </ul>
             </div>
@@ -56,6 +54,9 @@ and open the template in the editor.
         <main class="container">
             <div class="row">
                 <div class="col-xs-12">
+                    <div class="jumbotron">
+                        Enter a punch item below
+                    </div>
                     <form method="post">
                         <div class="form-group">
                             <label for="user">
